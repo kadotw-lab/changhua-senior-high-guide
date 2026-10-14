@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>115/116學年度 彰化區高級中等學校升學資訊指南</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Noto Sans TC Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        priority: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Custom scrollbar for tab navigation */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .active-tab {
+            color: #2563eb;
+            border-bottom: 3px solid #2563eb;
+            font-weight: 700;
+        }
+        /* Touch target optimizations */
+        select, button, input {
+            touch-action: manipulation;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased h-full flex flex-col bg-slate-50">
+
+<div id="app" class="min-h-screen flex flex-col pb-16 lg:pb-0">
+
+    <!-- Header Navbar -->
+    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-40 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex flex-wrap justify-between items-center gap-2">
+            
+            <!-- Logo & Title -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30 flex-shrink-0">
+                    <i class="fa-solid fa-graduation-cap text-xl sm:text-2xl text-white"></i>
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <h1 class="text-lg sm:text-2xl font-black tracking-tight text-white">彰化區中等學校升學導航</h1>
+                        <span class="bg-blue-500/20 text-blue-300 text-[10px] sm:text-xs px-2 py-0.5 rounded-md font-semibold border border-blue-500/30">115/116學年</span>
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-slate-400">家長專用免試 / 優先免試入學規定與積分對照指南</p>
+                </div>
+            </div>
+
+            <!-- Header Badge (Desktop & Tablet) -->
+            <div class="hidden sm:flex items-center space-x-2">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                    <i class="fa-solid fa-clock-rotate-left mr-1.5"></i> 採計截止日：116.04.23 (五)
+                </span>
+            </div>
+        </div>
+
+        <!-- Desktop Navigation Tabs -->
+        <nav class="bg-white border-b border-slate-200 text-slate-600 hidden md:block">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex space-x-8">
+                <button 
+                    v-for="tab in tabs" 
+                    :key="tab.id"
+                    @click="currentTab = tab.id"
+                    :class="['py-3.5 text-sm sm:text-base font-medium transition-all flex items-center space-x-2 border-b-2', currentTab === tab.id ? 'border-blue-600 text-blue-600 font-bold' : 'border-transparent hover:text-slate-900 hover:border-slate-300']"
+                >
+                    <i :class="[tab.icon, currentTab === tab.id ? 'text-blue-600' : 'text-slate-400']"></i>
+                    <span>{{ tab.name }}</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Scrollable Top Sub-header Bar -->
+    <div class="md:hidden bg-white border-b border-slate-200 sticky top-[61px] z-30 shadow-sm overflow-x-auto no-scrollbar">
+        <div class="flex whitespace-nowrap px-2 py-1">
+            <button 
+                v-for="tab in tabs" 
+                :key="tab.id"
+                @click="currentTab = tab.id"
+                :class="['px-3 py-2 text-xs font-medium rounded-lg flex items-center space-x-1.5 transition-colors', currentTab === tab.id ? 'bg-blue-50 text-blue-700 font-bold' : 'text-slate-600']"
+            >
+                <i :class="[tab.icon, currentTab === tab.id ? 'text-blue-600' : 'text-slate-400']"></i>
+                <span>{{ tab.name }}</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-6">
+
+        <!-- Banner Alert -->
+        <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 p-3.5 sm:p-4 rounded-r-2xl shadow-sm text-xs sm:text-sm text-amber-900 flex items-start gap-3">
+            <i class="fa-solid fa-bullhorn text-amber-600 text-lg mt-0.5 flex-shrink-0"></i>
+            <div class="leading-relaxed">
+                <span class="font-bold text-amber-950">116學年關鍵提醒：</span>
+                多元學習表現採計截止日為 <strong class="text-amber-900 font-extrabold underline">116年4月23日(星期五)</strong>。
+                體適能新制實施：<strong>「仰臥起坐」改為「仰臥捲腹」</strong>，國一至國三4項任採3項且擇最優一次檢測成績 (限同一學期)。
+            </div>
+        </div>
+
+        <!-- ================= TAB 1: 入學管道與重點規定 ================= -->
+        <section v-if="currentTab === 'overview'" class="space-y-6">
+            
+            <!-- Pathway Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                
+                <!-- 大免 Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col transition-all hover:shadow-md">
+                    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-4 sm:p-5">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="bg-blue-800/80 text-blue-100 text-xs px-2.5 py-0.5 rounded-full font-semibold">附表一</span>
+                                <h2 class="text-xl sm:text-2xl font-black mt-1">免試入學 (大免)</h2>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-blue-200 block">總分上限</span>
+                                <span class="text-2xl sm:text-3xl font-black text-amber-300">135 <span class="text-xs text-white">分</span></span>
+                            </div>
+                        </div>
+                        <p class="text-blue-100 text-xs sm:text-sm mt-2">彰化區主要主流分發管道，採計 志願序 + 多元表現 + 會考</p>
+                    </div>
+
+                    <div class="p-4 sm:p-5 flex-grow space-y-3.5 text-xs sm:text-sm">
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                            <span class="text-slate-600 font-medium"><i class="fa-solid fa-list-ol text-blue-500 mr-1.5"></i>志願序積分</span>
+                            <span class="font-bold text-slate-900">最高 45 分 <span class="text-slate-400 font-normal">(第1~20志願45分)</span></span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                            <span class="text-slate-600 font-medium"><i class="fa-solid fa-users text-blue-500 mr-1.5"></i>就近與弱勢身分</span>
+                            <span class="font-bold text-slate-900">就近 7 分 / 弱勢最高 2 分</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                            <span class="text-slate-600 font-medium"><i class="fa-solid fa-medal text-blue-500 mr-1.5"></i>多元學習表現</span>
+                            <span class="font-bold text-slate-900">最高 36 分 <span class="text-slate-400 font-normal">(品德20+績優16)</span></span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                            <span class="text-slate-600 font-medium"><i class="fa-solid fa-file-pen text-blue-500 mr-1.5"></i>國中教育會考</span>
+                            <span class="font-bold text-slate-900">最高 45 分 <span class="text-slate-400 font-normal">(五科最高45分)</span></span>
+                        </div>
+
+                        <div class="bg-blue-50/70 p-3 rounded-xl text-blue-900 text-xs leading-relaxed border border-blue-100">
+                            <i class="fa-solid fa-circle-info text-blue-600 mr-1"></i>
+                            <strong>志願計分原則：</strong>連續選填相同學校同一職群者，皆視為同一志願序積分。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 優免 Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col transition-all hover:shadow-md">
+                    <div class="bg-gradient-to-r from-purple-600 to-indigo-800 text-white p-4 sm:p-5">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="bg-purple-900/80 text-purple-100 text-xs px-2.5 py-0.5 rounded-full font-semibold">附表二</span>
+                                <h2 class="text-xl sm:text-2xl font-black mt-1">優先免試入學 (優免)</h2>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-purple-200 block">總分上限</span>
+                                <span class="text-2xl sm:text-3xl font-black text-amber-300">150 <span class="text-xs text-white">分</span></span>
+                            </div>
+                        </div>
+                        <p class="text-purple-100 text-xs sm:text-sm mt-2">彰化在地優先照顧管道，僅填一校，含會考選科加權</p>
+                    </div>
+
+                    <div class="p-4 sm:p-5 flex-grow space-y-3.5 text-xs sm:text-sm">
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                            <span class="text-slate-600 font-medium"><i class="fa-solid fa-heart text-purple-500 mr-1.5"></i>志願積分</span>
+                            <span class="font-bold text-purple-700">最高 55 分 <span class="text-purple-500 font-normal">(限填1校)</span></span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                            <span class="text-slate-600 font-medium"><i class="fa-solid fa-users text-purple-500 mr-1.5"></i>就近與弱勢身分</span>
+                            <span class="font-bold text-slate-900">就近 7 分 / 弱勢最高 2 分</span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                            <span class="text-slate-600 font-medium"><i class="fa-solid fa-medal text-purple-500 mr-1.5"></i>多元學習表現</span>
+                            <span class="font-bold text-slate-900">最高 36 分 <span class="text-slate-400 font-normal">(品德20+績優16)</span></span>
+                        </div>
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-100">
+                            <span class="text-slate-600 font-medium"><i class="fa-solid fa-wand-magic-sparkles text-purple-500 mr-1.5"></i>會考原始 + 加權</span>
+                            <span class="font-bold text-purple-700">最高 50 分 <span class="text-purple-500 font-normal">(原始45+加權5)</span></span>
+                        </div>
+
+                        <div class="bg-purple-50/70 p-3 rounded-xl text-purple-900 text-xs leading-relaxed border border-purple-100">
+                            <i class="fa-solid fa-sparkles text-purple-600 mr-1"></i>
+                            <strong>優免加權機制：</strong>招生學校可選至多兩科加權（加權分數 = 原始分數 × 0.3）。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Rules & Exclusion Provisions -->
+            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200 space-y-4">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 flex items-center border-b border-slate-100 pb-3">
+                    <i class="fa-solid fa-shield-halved text-blue-600 mr-2 text-lg"></i> 優先免試與免試重要規定 (摘自實施計畫與作業要點)
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4 text-xs sm:text-sm">
+                    
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1.5">
+                        <div class="font-bold text-slate-900 flex items-center">
+                            <span class="bg-red-100 text-red-700 text-xs font-extrabold px-2 py-0.5 rounded-md mr-2">條款 1</span>
+                            直升與優免互斥
+                        </div>
+                        <p class="text-slate-600 leading-relaxed text-xs">
+                            高中附設國中部應屆畢業生，<strong class="text-red-600">不得報名該校辦理之優先免試入學</strong>（例：文興國中不得報名文興高中優免）。
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1.5">
+                        <div class="font-bold text-slate-900 flex items-center">
+                            <span class="bg-red-100 text-red-700 text-xs font-extrabold px-2 py-0.5 rounded-md mr-2">條款 2</span>
+                            不可同時跨選直升與優免
+                        </div>
+                        <p class="text-slate-600 leading-relaxed text-xs">
+                            不得同時報名本校直升入學及他校優先免試入學。<strong class="text-slate-800">（報名本校直升即不可報他校優免；報他校優免即不可報本校直升）</strong>。
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1.5">
+                        <div class="font-bold text-slate-900 flex items-center">
+                            <span class="bg-blue-100 text-blue-700 text-xs font-extrabold px-2 py-0.5 rounded-md mr-2">條款 3</span>
+                            報名資格與限制
+                        </div>
+                        <p class="text-slate-600 leading-relaxed text-xs">
+                            優先免試入學學生<strong class="text-blue-700">限擇一校報名</strong>。須於<strong class="text-slate-800">116年2月1日前就讀本區國中且未申請變更就學區者</strong>為限。
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1.5">
+                        <div class="font-bold text-slate-900 flex items-center">
+                            <span class="bg-emerald-100 text-emerald-700 text-xs font-extrabold px-2 py-0.5 rounded-md mr-2">新制 4</span>
+                            體適能檢測項目調整
+                        </div>
+                        <p class="text-slate-600 leading-relaxed text-xs">
+                            113年8月1日起：「仰臥起坐」改為「<strong class="text-emerald-700 font-bold">仰臥捲腹</strong>」。心肺耐力為女生800公尺/男生1600公尺。國一至國三4項任採3項且擇最優一次成績（限同一學期）。
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1.5">
+                        <div class="font-bold text-slate-900 flex items-center">
+                            <span class="bg-purple-100 text-purple-700 text-xs font-extrabold px-2 py-0.5 rounded-md mr-2">規定 5</span>
+                            超額比序與增額
+                        </div>
+                        <p class="text-slate-600 leading-relaxed text-xs">
+                            報名人數未超過學校核定名額時全額錄取；超過時依比序項目積分及順序分發。若經全部比序後仍同分超額，採<strong class="text-purple-700 font-bold">增額錄取</strong>處理。
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 space-y-1.5">
+                        <div class="font-bold text-slate-900 flex items-center">
+                            <span class="bg-amber-100 text-amber-700 text-xs font-extrabold px-2 py-0.5 rounded-md mr-2">採計 6</span>
+                            積分審查採計截止
+                        </div>
+                        <p class="text-slate-600 leading-relaxed text-xs">
+                            116學年度各項比序項目積分結算日由縣府統一規定為 <strong class="text-amber-800 font-bold underline">116年4月23日 (星期五) 截止</strong>。
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: 積分對照標準 ================= -->
+        <section v-if="currentTab === 'points'" class="space-y-6">
+            
+            <!-- Table Switcher Tabs -->
+            <div class="flex justify-center">
+                <div class="bg-slate-200 p-1 rounded-2xl flex max-w-md w-full text-xs sm:text-sm font-bold shadow-inner">
+                    <button 
+                        @click="scoreTableMode = 'general'"
+                        :class="['flex-1 py-2.5 rounded-xl transition-all flex items-center justify-center space-x-1', scoreTableMode === 'general' ? 'bg-white text-blue-700 shadow-md' : 'text-slate-600 hover:text-slate-900']"
+                    >
+                        <span>大免比序 (附表一 135分)</span>
+                    </button>
+                    <button 
+                        @click="scoreTableMode = 'priority'"
+                        :class="['flex-1 py-2.5 rounded-xl transition-all flex items-center justify-center space-x-1', scoreTableMode === 'priority' ? 'bg-white text-purple-700 shadow-md' : 'text-slate-600 hover:text-slate-900']"
+                    >
+                        <span>優免比序 (附表二 150分)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table Container (Scrollable on small screens) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-4 bg-slate-900 text-white flex flex-wrap justify-between items-center gap-2">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-table-list text-amber-400"></i>
+                        <h3 class="font-bold text-sm sm:text-base">
+                            {{ scoreTableMode === 'general' ? '116學年度 彰化區高級中等學校免試入學比序項目積分對照表 (附表一)' : '116學年度 彰化區高級中等學校優先免試入學比序項目積分對照表 (附表二)' }}
+                        </h3>
+                    </div>
+                    <span class="text-xs bg-amber-400 text-slate-950 px-2.5 py-1 rounded-full font-black">
+                        最高總積分：{{ scoreTableMode === 'general' ? '135 分' : '150 分' }}
+                    </span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs sm:text-sm text-slate-700 border-collapse min-w-[640px]">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-800 border-b border-slate-200 font-bold">
+                                <th class="p-3.5 w-28">項目</th>
+                                <th class="p-3.5 min-w-[220px]">計算標準與內容</th>
+                                <th class="p-3.5 w-24 text-center">最高分數</th>
+                                <th class="p-3.5">備註說明與注意事項</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            
+                            <!-- 志願序 -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-3.5 font-bold text-slate-900 bg-slate-50/50">
+                                    {{ scoreTableMode === 'general' ? '志願序' : '志願積分' }}
+                                </td>
+                                <td class="p-3.5">
+                                    <div v-if="scoreTableMode === 'general'" class="space-y-1">
+                                        <div>• 第 1 至 20 個志願序：<strong class="text-blue-600 font-bold">45 分</strong></div>
+                                        <div>• 第 21 個志願序以後：<strong class="text-slate-600">44 分</strong></div>
+                                    </div>
+                                    <div v-else>
+                                        • 僅選填一個學校：<strong class="text-purple-700 font-bold">55 分</strong>
+                                    </div>
+                                </td>
+                                <td class="p-3.5 text-center font-black text-blue-600 text-base">
+                                    {{ scoreTableMode === 'general' ? '45分' : '55分' }}
+                                </td>
+                                <td class="p-3.5 text-slate-500 text-xs leading-relaxed">
+                                    {{ scoreTableMode === 'general' ? '連續選填相同學校同一職群者，皆計為同一志願序積分。' : '同校各科志願積分皆相同。' }}
+                                </td>
+                            </tr>
+
+                            <!-- 身分別 -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-3.5 font-bold text-slate-900 bg-slate-50/50">身分別</td>
+                                <td class="p-3.5 space-y-1">
+                                    <div>• 經濟弱勢：低收入戶 <strong class="text-blue-600">2分</strong> / 中低收入戶 <strong class="text-blue-600">1分</strong></div>
+                                    <div>• 就近入學：符合彰化區免試/共同就學區 <strong class="text-blue-600">7分</strong></div>
+                                </td>
+                                <td class="p-3.5 text-center font-black text-blue-600">
+                                    弱勢 2分<br>就近 7分
+                                </td>
+                                <td class="p-3.5 text-slate-500 text-xs">
+                                    限升學當年度取得鄉鎮(市)公所開立之證明文件。
+                                </td>
+                            </tr>
+
+                            <!-- 品德服務 -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-3.5 font-bold text-slate-900 bg-slate-50/50">
+                                    品德服務<br><span class="text-[11px] font-normal text-slate-500">(上限20分)</span>
+                                </td>
+                                <td class="p-3.5 space-y-1.5">
+                                    <div><strong>服務學習 (上限8分)：</strong>幹部任滿1學期2分；服務時數每1小時0.1分。</div>
+                                    <div><strong>獎勵紀錄 (上限6分)：</strong>大功4.5分 / 小功1.5分 / 嘉獎0.5分。</div>
+                                    <div><strong>生活教育 (上限8分)：</strong>完全或銷過後無懲處6分；符合無曠課2分。</div>
+                                </td>
+                                <td class="p-3.5 text-center font-black text-blue-600 text-base">20分</td>
+                                <td class="p-3.5 text-slate-500 text-xs space-y-1">
+                                    <div>1. 幹部包含班級、社團及學校幹部。</div>
+                                    <div>2. 獎勵不含已列其他比序項目之獎勵，功過相抵後採計。</div>
+                                </td>
+                            </tr>
+
+                            <!-- 績優表現 -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-3.5 font-bold text-slate-900 bg-slate-50/50">
+                                    績優表現<br><span class="text-[11px] font-normal text-slate-500">(上限16分)</span>
+                                </td>
+                                <td class="p-3.5 space-y-1.5">
+                                    <div><strong>均衡學習 (上限6分)：</strong>5學期符合6分 / 4學期4分 / 3學期2分 / 2學期(含)以下0分。</div>
+                                    <div><strong>社團參與 (上限4分)：</strong>社團績優每1學期1分。</div>
+                                    <div><strong>競賽表現 (上限6分)：</strong>國際/全國/全縣名次核算 (國際第1名6分、全國5分、全縣4分)。</div>
+                                    <div><strong>體適能 (上限6分)：</strong>銅牌以上每單項2分 / 中等或待加強各1分。</div>
+                                </td>
+                                <td class="p-3.5 text-center font-black text-blue-600 text-base">16分</td>
+                                <td class="p-3.5 text-slate-500 text-xs space-y-1">
+                                    <div>1. 均衡學習採健體、藝術、綜合、科技四領域，同一學期任三領域達及格。採計國一至國三上共5學期。</div>
+                                    <div>2. 體適能排除BMI，4項任採3項擇最優一次。身障者比照銅牌。</div>
+                                </td>
+                            </tr>
+
+                            <!-- 教育會考 -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-3.5 font-bold text-slate-900 bg-slate-50/50">教育會考</td>
+                                <td class="p-3.5">
+                                    <p class="mb-1.5">國文、數學、英語、自然、社會五科轉換積分：</p>
+                                    <div class="grid grid-cols-7 gap-1 text-center font-mono text-xs">
+                                        <div class="bg-blue-100 p-1 rounded font-bold text-blue-900">A++<br>9分</div>
+                                        <div class="bg-blue-100 p-1 rounded font-bold text-blue-900">A+<br>8分</div>
+                                        <div class="bg-blue-100 p-1 rounded font-bold text-blue-900">A<br>7分</div>
+                                        <div class="bg-blue-50 p-1 rounded text-slate-700">B++<br>6分</div>
+                                        <div class="bg-blue-50 p-1 rounded text-slate-700">B+<br>5分</div>
+                                        <div class="bg-blue-50 p-1 rounded text-slate-700">B<br>4分</div>
+                                        <div class="bg-slate-100 p-1 rounded text-slate-500">C<br>3分</div>
+                                    </div>
+                                </td>
+                                <td class="p-3.5 text-center font-black text-blue-600 text-base">45分</td>
+                                <td class="p-3.5 text-slate-500 text-xs">
+                                    寫作測驗列為總積分相同後之同分比序項目（不計入總積分）。
+                                </td>
+                            </tr>
+
+                            <!-- 會考加權 (優免專屬) -->
+                            <tr v-if="scoreTableMode === 'priority'" class="bg-purple-50/50 hover:bg-purple-50 transition-colors">
+                                <td class="p-3.5 font-bold text-purple-950 bg-purple-100/50">
+                                    會考加權<br><span class="text-[11px] font-bold text-purple-700">(優免專屬)</span>
+                                </td>
+                                <td class="p-3.5">
+                                    招生學校得選擇至多兩科加權：<br>
+                                    <strong class="text-purple-800">加權分數 = 原始分數 × 0.3</strong>
+                                    <div class="mt-1 text-[11px] text-purple-700 font-mono">
+                                        (原始18分→加權5分 | 17分→4.8分 | 16分→4.5分 | 15分→4.2分 | ... | 3分→0.9分)
+                                    </div>
+                                </td>
+                                <td class="p-3.5 text-center font-black text-purple-700 text-base">5分</td>
+                                <td class="p-3.5 text-purple-900 text-xs">
+                                    限高中階段採計，入學當年度以8月1日起算。
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: 同分比序順序 ================= -->
+        <section v-if="currentTab === 'tiebreaker'" class="space-y-6">
+            
+            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200">
+                <div class="max-w-3xl">
+                    <h3 class="text-base sm:text-xl font-bold text-slate-900">總積分相同時之「同分比序」嚴格順序</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">當報名人數超過招生成額時，系統將嚴格按照下列順序進行逐項比對，直到分出勝負。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    
+                    <!-- 免試入學 (大免) 比序 -->
+                    <div class="border border-blue-200 rounded-2xl p-4 sm:p-5 bg-gradient-to-b from-blue-50/40 to-white shadow-sm">
+                        <div class="flex items-center justify-between pb-3 mb-4 border-b border-blue-200">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+                                <h4 class="font-extrabold text-blue-950 text-base sm:text-lg">免試入學 (大免) 比序順序</h4>
+                            </div>
+                            <span class="text-xs bg-blue-600 text-white font-bold px-2.5 py-0.5 rounded-full">附表一</span>
+                        </div>
+
+                        <ol class="space-y-2.5 text-xs sm:text-sm text-slate-700">
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-blue-100 shadow-2xs font-semibold">
+                                <span class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs mr-2 flex-shrink-0">1</span>
+                                志願序積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-blue-100 shadow-2xs">
+                                <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center text-xs font-bold mr-2 flex-shrink-0">2</span>
+                                就近入學積分
+                            </li>
+                            <li class="flex items-center p-2 bg-amber-50 rounded-lg border border-amber-300 text-amber-950 font-bold shadow-2xs">
+                                <span class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs mr-2 flex-shrink-0">3</span>
+                                寫作測驗級分 <span class="ml-auto text-[11px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded">關鍵前置!</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-blue-100 shadow-2xs">
+                                <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center text-xs font-bold mr-2 flex-shrink-0">4</span>
+                                志願序 (即志願順位)
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">5</span>
+                                經濟弱勢積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">6</span>
+                                均衡學習積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">7</span>
+                                服務學習積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">8</span>
+                                生活教育積分
+                            </li>
+                            <li class="flex items-center p-2 bg-amber-50/70 rounded-lg border border-amber-200 text-amber-900 font-bold">
+                                <span class="w-6 h-6 rounded-full bg-amber-400 text-amber-950 flex items-center justify-center text-xs mr-2 flex-shrink-0">9</span>
+                                競賽表現積分 <span class="ml-auto text-[11px] text-amber-700">優先於獎勵</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">10</span>
+                                獎勵紀錄積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">11</span>
+                                體適能積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">12</span>
+                                社團參與積分
+                            </li>
+                            <li class="flex items-center p-2 bg-blue-100/70 rounded-lg border border-blue-200 font-bold text-blue-900">
+                                <span class="w-6 h-6 rounded-full bg-blue-700 text-white flex items-center justify-center text-xs mr-2 flex-shrink-0">13</span>
+                                教育會考總積分
+                            </li>
+                            <li class="flex items-center p-2 bg-slate-100 rounded-lg text-slate-600 text-xs">
+                                <span class="w-6 h-6 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-xs font-bold mr-2 flex-shrink-0">14</span>
+                                會考單科：國文 → 數學 → 英語 → 自然 → 社會
+                            </li>
+                        </ol>
+                    </div>
+
+                    <!-- 優先免試 (優免) 比序 -->
+                    <div class="border border-purple-200 rounded-2xl p-4 sm:p-5 bg-gradient-to-b from-purple-50/40 to-white shadow-sm">
+                        <div class="flex items-center justify-between pb-3 mb-4 border-b border-purple-200">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-purple-600"></span>
+                                <h4 class="font-extrabold text-purple-950 text-base sm:text-lg">優先免試入學 (優免) 比序順序</h4>
+                            </div>
+                            <span class="text-xs bg-purple-700 text-white font-bold px-2.5 py-0.5 rounded-full">附表二</span>
+                        </div>
+
+                        <ol class="space-y-2.5 text-xs sm:text-sm text-slate-700">
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-purple-100 shadow-2xs font-semibold">
+                                <span class="w-6 h-6 rounded-full bg-purple-700 text-white flex items-center justify-center text-xs mr-2 flex-shrink-0">1</span>
+                                就近入學積分
+                            </li>
+                            <li class="flex items-center p-2 bg-amber-50 rounded-lg border border-amber-300 text-amber-950 font-bold shadow-2xs">
+                                <span class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs mr-2 flex-shrink-0">2</span>
+                                寫作測驗級分 <span class="ml-auto text-[11px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded">優免第2順位!</span>
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">3</span>
+                                經濟弱勢積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">4</span>
+                                均衡學習積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">5</span>
+                                服務學習積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">6</span>
+                                生活教育積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">7</span>
+                                競賽表現積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">8</span>
+                                獎勵紀錄積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">9</span>
+                                體適能積分
+                            </li>
+                            <li class="flex items-center p-2 bg-white rounded-lg border border-slate-100">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center text-xs mr-2 flex-shrink-0">10</span>
+                                社團參與積分
+                            </li>
+                            <li class="flex items-center p-2 bg-purple-100/70 rounded-lg border border-purple-200 font-bold text-purple-900">
+                                <span class="w-6 h-6 rounded-full bg-purple-700 text-white flex items-center justify-center text-xs mr-2 flex-shrink-0">11</span>
+                                教育會考總積分
+                            </li>
+                            <li class="flex items-center p-2 bg-slate-100 rounded-lg text-slate-600 text-xs">
+                                <span class="w-6 h-6 rounded-full bg-slate-300 text-slate-700 flex items-center justify-center text-xs font-bold mr-2 flex-shrink-0">12</span>
+                                會考單科：國文 → 數學 → 英語 → 自然 → 社會
+                            </li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: 線上試算器 ================= -->
+        <section v-if="currentTab === 'calculator'" class="space-y-6">
+            
+            <div class="flex flex-wrap justify-between items-center gap-2">
+                <div>
+                    <h2 class="text-lg sm:text-xl font-bold text-slate-900">彰化區升學積分試算器</h2>
+                    <p class="text-xs text-slate-500">輸入學生目前成績，即可同時試算「大免 (135分)」與「優免 (150分)」分數</p>
+                </div>
+                <div class="flex space-x-2">
+                    <button @click="fillPreset('max')" class="px-3 py-1.5 text-xs font-bold bg-blue-100 text-blue-700 hover:bg-blue-200 rounded-lg transition-colors">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-1"></i>帶入滿分樣本
+                    </button>
+                    <button @click="resetCalc" class="px-3 py-1.5 text-xs font-medium bg-slate-200 text-slate-700 hover:bg-slate-300 rounded-lg transition-colors">
+                        重設預設值
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Inputs Section (2 Cols) -->
+                <div class="lg:col-span-2 space-y-5">
+                    
+                    <!-- Section 1: 身分與志願 -->
+                    <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base border-b pb-2 flex items-center justify-between">
+                            <span><i class="fa-solid fa-id-card text-blue-600 mr-2"></i>1. 身分別與志願選擇</span>
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs sm:text-sm">
+                            <div>
+                                <label class="block text-slate-700 font-medium mb-1">就近入學資格</label>
+                                <select v-model.number="calc.nearby" class="w-full border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 font-medium">
+                                    <option :value="7">符合彰化區/共同就學區 (7分)</option>
+                                    <option :value="0">不符合 (0分)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-slate-700 font-medium mb-1">經濟弱勢身份</label>
+                                <select v-model.number="calc.disadvantaged" class="w-full border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50 font-medium">
+                                    <option :value="0">一般生 (0分)</option>
+                                    <option :value="1">中低收入戶 (1分)</option>
+                                    <option :value="2">低收入戶 (2分)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: 品德服務 (上限20) -->
+                    <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200 space-y-3">
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <h3 class="font-bold text-slate-900 text-sm sm:text-base">
+                                <i class="fa-solid fa-award text-blue-600 mr-2"></i>2. 品德服務表現
+                            </h3>
+                            <span class="text-xs bg-blue-50 text-blue-700 font-bold px-2.5 py-0.5 rounded-full">
+                                上限 20 分 (小計 {{ totalMoralScore }} 分)
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 text-xs sm:text-sm">
+                            <div>
+                                <label class="block text-slate-700 font-medium mb-1">服務學習 (上限8分)</label>
+                                <input type="number" v-model.number="calc.service" min="0" max="8" step="0.5" class="w-full border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+                                <p class="text-[11px] text-slate-400 mt-1">幹部1學期2分 / 服務1小時0.1分</p>
+                            </div>
+                            <div>
+                                <label class="block text-slate-700 font-medium mb-1">獎勵紀錄 (上限6分)</label>
+                                <input type="number" v-model.number="calc.reward" min="0" max="6" step="0.5" class="w-full border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+                                <p class="text-[11px] text-slate-400 mt-1">大功4.5 / 小功1.5 / 嘉獎0.5</p>
+                            </div>
+                            <div>
+                                <label class="block text-slate-700 font-medium mb-1">生活教育 (上限8分)</label>
+                                <select v-model.number="calc.lifeEdu" class="w-full border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50">
+                                    <option :value="8">無懲處(6分) + 無曠課(2分) [8分]</option>
+                                    <option :value="6">無懲處(6分) + 有曠課(0分) [6分]</option>
+                                    <option :value="2">有懲處(0分) + 無曠課(2分) [2分]</option>
+                                    <option :value="0">有懲處且有曠課 [0分]</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: 績優表現 (上限16) -->
+                    <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200 space-y-3">
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <h3 class="font-bold text-slate-900 text-sm sm:text-base">
+                                <i class="fa-solid fa-star text-blue-600 mr-2"></i>3. 績優表現
+                            </h3>
+                            <span class="text-xs bg-blue-50 text-blue-700 font-bold px-2.5 py-0.5 rounded-full">
+                                上限 16 分 (小計 {{ totalPerformanceScore }} 分)
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs sm:text-sm">
+                            <div>
+                                <label class="block text-slate-700 font-medium mb-1">均衡學習 (採計5學期)</label>
+                                <select v-model.number="calc.balanced" class="w-full border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50">
+                                    <option :value="6">5學期皆符合 (6分)</option>
+                                    <option :value="4">4學期符合 (4分)</option>
+                                    <option :value="2">3學期符合 (2分)</option>
+                                    <option :value="0">2學期(含)以下 (0分)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-slate-700 font-medium mb-1">社團參與 (上限4分)</label>
+                                <input type="number" v-model.number="calc.club" min="0" max="4" class="w-full border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+                                <p class="text-[11px] text-slate-400 mt-1">績優每1學期1分 (採計5學期)</p>
+                            </div>
+                            <div>
+                                <label class="block text-slate-700 font-medium mb-1">競賽表現 (上限6分)</label>
+                                <input type="number" v-model.number="calc.competition" min="0" max="6" class="w-full border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+                                <p class="text-[11px] text-slate-400 mt-1">依縣級/全國/國際採計對照</p>
+                            </div>
+                            <div>
+                                <label class="block text-slate-700 font-medium mb-1">體適能 (4項任採3項, 上限6分)</label>
+                                <input type="number" v-model.number="calc.fitness" min="0" max="6" class="w-full border border-slate-300 rounded-xl p-2.5 focus:ring-2 focus:ring-blue-500 outline-none">
+                                <p class="text-[11px] text-slate-400 mt-1">銅牌各2分 / 中等待加強各1分</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: 會考成績預估 -->
+                    <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200 space-y-3">
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base border-b pb-2 flex items-center justify-between">
+                            <span><i class="fa-solid fa-pen-to-square text-blue-600 mr-2"></i>4. 教育會考預估等級 (五科)</span>
+                            <span class="text-xs text-slate-500">基礎小計：{{ totalCapScore }} 分</span>
+                        </h3>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 text-xs sm:text-sm">
+                            <div v-for="(subjectName, key) in subjects" :key="key">
+                                <label class="block text-slate-700 font-medium mb-1 text-center">{{ subjectName }}</label>
+                                <select v-model="calc.cap[key]" class="w-full border border-slate-300 rounded-xl p-2 text-center font-extrabold text-blue-900 focus:ring-2 focus:ring-blue-500 outline-none bg-blue-50/50">
+                                    <option value="A++">A++ (9分)</option>
+                                    <option value="A+">A+ (8分)</option>
+                                    <option value="A">A (7分)</option>
+                                    <option value="B++">B++ (6分)</option>
+                                    <option value="B+">B+ (5分)</option>
+                                    <option value="B">B (4分)</option>
+                                    <option value="C">C (3分)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- 優免加權科目設定 -->
+                        <div class="mt-4 pt-3 border-t border-slate-100 text-xs">
+                            <label class="block font-bold text-purple-900 mb-1">
+                                <i class="fa-solid fa-sparkles text-purple-600 mr-1"></i>優免選擇加權科目 (至多選擇兩科加權)
+                            </label>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <button 
+                                    v-for="(subjectName, key) in subjects" 
+                                    :key="key"
+                                    @click="toggleWeightedSubject(key)"
+                                    :class="['px-3 py-1.5 rounded-lg border font-semibold transition-all', calc.weightedSubjects.includes(key) ? 'bg-purple-600 text-white border-purple-600 shadow-sm' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100']"
+                                >
+                                    {{ subjectName }} ({{ capScoreMap[calc.cap[key]] }}分)
+                                </button>
+                            </div>
+                            <p class="text-[11px] text-slate-400 mt-1.5">
+                                選取科目的原始分數 × 0.3 即為加權得分 (目前選擇 {{ calc.weightedSubjects.length }}/2 科，加權採計：+{{ totalWeightBonus }} 分)
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Summary Results Card (Desktop Sticky) -->
+                <div class="lg:col-span-1">
+                    <div class="bg-slate-900 text-white rounded-2xl p-5 shadow-xl sticky top-28 space-y-5 border border-slate-800">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <h3 class="font-bold text-base flex items-center">
+                                <i class="fa-solid fa-calculator text-amber-400 mr-2"></i>試算結果總覽
+                            </h3>
+                            <span class="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded border border-blue-500/30">即時計算</span>
+                        </div>
+
+                        <!-- 大免 Score Display -->
+                        <div class="bg-slate-800/80 rounded-xl p-4 border border-slate-700/80">
+                            <div class="text-xs text-blue-300 font-bold mb-1">一般免試入學 (大免) 預估積分</div>
+                            <div class="flex items-baseline justify-between">
+                                <span class="text-4xl font-black text-amber-400">{{ grandTotalGeneral }}</span>
+                                <span class="text-xs text-slate-400">/ 135 滿分</span>
+                            </div>
+                            <div class="mt-3 text-xs space-y-1 text-slate-300 border-t border-slate-700 pt-2 font-mono">
+                                <div class="flex justify-between"><span>志願序 (第1~20):</span><span>45.0 分</span></div>
+                                <div class="flex justify-between"><span>身分別(就近/弱勢):</span><span>{{ (calc.nearby + calc.disadvantaged).toFixed(1) }} 分</span></div>
+                                <div class="flex justify-between"><span>多元表現(品德+績優):</span><span>{{ (totalMoralScore + totalPerformanceScore).toFixed(1) }} 分</span></div>
+                                <div class="flex justify-between"><span>教育會考五科:</span><span>{{ totalCapScore.toFixed(1) }} 分</span></div>
+                            </div>
+                        </div>
+
+                        <!-- 優免 Score Display -->
+                        <div class="bg-purple-950/60 rounded-xl p-4 border border-purple-800/60">
+                            <div class="text-xs text-purple-300 font-bold mb-1">優先免試入學 (優免) 預估積分</div>
+                            <div class="flex items-baseline justify-between">
+                                <span class="text-4xl font-black text-purple-300">{{ grandTotalPriority }}</span>
+                                <span class="text-xs text-purple-400">/ 150 滿分</span>
+                            </div>
+                            <div class="mt-2 text-[11px] text-purple-200 border-t border-purple-900/60 pt-2 leading-relaxed">
+                                含志願 55 分 + 會考加權得分 {{ totalWeightBonus }} 分
+                            </div>
+                        </div>
+
+                        <p class="text-[11px] text-slate-400 leading-relaxed border-t border-slate-800 pt-3">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-400 mr-1"></i>
+                            本結果依據 116 學年度彰化區實施計畫公式換算，僅供家長參考，實際積分請依各國中校內審查與彰化縣政府正式發布為準。
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= TAB 5: 官方升學網站與資源 ================= -->
+        <section v-if="currentTab === 'resources'" class="space-y-6">
+            
+            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-1">彰化區常用升學官方網站與平台</h3>
+                <p class="text-xs sm:text-sm text-slate-500 mb-5">點擊下方卡片可快速開啟相關宣導網站與多元學習表現積分採計系統。</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    
+                    <a href="https://adapt.k12ea.gov.tw" target="_blank" class="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50/30 transition-all group flex items-start space-x-3.5">
+                        <div class="p-3 bg-blue-600 text-white rounded-xl shadow-md group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-compass text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm group-hover:text-blue-600">國中畢業生適性入學宣導網</h4>
+                            <p class="text-xs text-slate-500 mt-1">教育部官方宣導及簡章查詢平台</p>
+                            <span class="text-[11px] text-blue-600 mt-2 inline-flex items-center font-semibold">開啟網站 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="https://sites.google.com/chc.edu.tw/k12" target="_blank" class="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/30 transition-all group flex items-start space-x-3.5">
+                        <div class="p-3 bg-indigo-600 text-white rounded-xl shadow-md group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-school text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm group-hover:text-indigo-600">彰化縣十二年國教網</h4>
+                            <p class="text-xs text-slate-500 mt-1">彰化縣免試入學政策與最新公告</p>
+                            <span class="text-[11px] text-indigo-600 mt-2 inline-flex items-center font-semibold">開啟網站 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="https://cap.rcpet.edu.tw" target="_blank" class="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 transition-all group flex items-start space-x-3.5">
+                        <div class="p-3 bg-emerald-600 text-white rounded-xl shadow-md group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-file-pen text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm group-hover:text-emerald-600">國中教育會考網站</h4>
+                            <p class="text-xs text-slate-500 mt-1">全國會考日程、題本與成績查詢</p>
+                            <span class="text-[11px] text-emerald-600 mt-2 inline-flex items-center font-semibold">開啟網站 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="https://web1.hshs.chc.edu.tw/ezfiles/1/1001/attach/61/pta_25910_1519775_26982.pdf" target="_blank" class="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-amber-500 hover:bg-amber-50/30 transition-all group flex items-start space-x-3.5">
+                        <div class="p-3 bg-amber-600 text-white rounded-xl shadow-md group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-sliders text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm group-hover:text-amber-600">多元學習表現積分採計操作</h4>
+                            <p class="text-xs text-slate-500 mt-1">彰化區學生校內多元積分審查系統</p>
+                            <span class="text-[11px] text-amber-600 mt-2 inline-flex items-center font-semibold">檢視說明 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="https://sites.google.com/chc.edu.tw/k12/%E6%AF%94%E5%BA%8F%E9%A0%85%E7%9B%AE" target="_blank" class="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-purple-500 hover:bg-purple-50/30 transition-all group flex items-start space-x-3.5">
+                        <div class="p-3 bg-purple-600 text-white rounded-xl shadow-md group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-trophy text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm group-hover:text-purple-600">縣級競賽採計項目查詢</h4>
+                            <p class="text-xs text-slate-500 mt-1">彰化縣政府認可採計競賽表列</p>
+                            <span class="text-[11px] text-purple-600 mt-2 inline-flex items-center font-semibold">開啟網站 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="https://isports.sa.gov.tw/fitness" target="_blank" class="p-4 bg-slate-50 rounded-2xl border border-slate-200 hover:border-rose-500 hover:bg-rose-50/30 transition-all group flex items-start space-x-3.5">
+                        <div class="p-3 bg-rose-600 text-white rounded-xl shadow-md group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-heart-pulse text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm group-hover:text-rose-600">教育部運動部體適能網站</h4>
+                            <p class="text-xs text-slate-500 mt-1">體適能常模標準與仰臥捲腹說明</p>
+                            <span class="text-[11px] text-rose-600 mt-2 inline-flex items-center font-semibold">開啟網站 <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Mobile Fixed Bottom Navigation Bar -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 z-50 px-2 py-1.5 shadow-2xl">
+        <div class="flex justify-around items-center">
+            <button 
+                v-for="tab in tabs" 
+                :key="tab.id"
+                @click="currentTab = tab.id"
+                :class="['flex flex-col items-center py-1 px-2 rounded-lg transition-colors', currentTab === tab.id ? 'text-amber-400 font-bold' : 'text-slate-400']"
+            >
+                <i :class="[tab.icon, 'text-base mb-0.5']"></i>
+                <span class="text-[10px]">{{ tab.shortName }}</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Floating Summary Bar (Appears on Calculator Tab) -->
+    <div v-if="currentTab === 'calculator'" class="lg:hidden fixed bottom-[58px] left-0 right-0 bg-slate-900/95 backdrop-blur-md border-t border-slate-800 text-white px-4 py-2.5 z-40 flex justify-between items-center shadow-lg">
+        <div class="flex items-center space-x-3">
+            <div>
+                <span class="text-[10px] text-blue-300 block">大免預估</span>
+                <span class="text-xl font-black text-amber-400">{{ grandTotalGeneral }} <span class="text-[10px] font-normal text-slate-400">/135</span></span>
+            </div>
+            <div class="h-6 w-px bg-slate-700"></div>
+            <div>
+                <span class="text-[10px] text-purple-300 block">優免預估</span>
+                <span class="text-xl font-black text-purple-300">{{ grandTotalPriority }} <span class="text-[10px] font-normal text-slate-400">/150</span></span>
+            </div>
+        </div>
+        <button @click="resetCalc" class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-md border border-slate-700">
+            重設
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-500 text-xs py-6 mt-auto border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-1.5">
+            <p>資料依據：彰化縣政府 115/116學年度彰化區高級中等學校免試入學與優先免試入學實施計畫與對照表</p>
+            <p>© 彰化縣中等學校升學資訊輔導指南</p>
+        </div>
+    </footer>
+
+</div>
+
+<script>
+    const { createApp } = Vue;
+
+    createApp({
+        data() {
+            return {
+                currentTab: 'overview',
+                scoreTableMode: 'general', // 'general' or 'priority'
+                tabs: [
+                    { id: 'overview', name: '管道概覽與規定', shortName: '概覽規定', icon: 'fa-solid fa-circle-info' },
+                    { id: 'points', name: '積分對照表', shortName: '積分對照', icon: 'fa-solid fa-table-list' },
+                    { id: 'tiebreaker', name: '同分比序順序', shortName: '同分比序', icon: 'fa-solid fa-arrow-down-short-wide' },
+                    { id: 'calculator', name: '線上積分試算', shortName: '積分試算', icon: 'fa-solid fa-calculator' },
+                    { id: 'resources', name: '常用升學網站', shortName: '官方資源', icon: 'fa-solid fa-link' },
+                ],
+                subjects: {
+                    chi: '國文',
+                    math: '數學',
+                    eng: '英語',
+                    sci: '自然',
+                    soc: '社會'
+                },
+                capScoreMap: {
+                    'A++': 9,
+                    'A+': 8,
+                    'A': 7,
+                    'B++': 6,
+                    'B+': 5,
+                    'B': 4,
+                    'C': 3
+                },
+                calc: {
+                    nearby: 7,
+                    disadvantaged: 0,
+                    service: 8,
+                    reward: 6,
+                    lifeEdu: 8,
+                    balanced: 6,
+                    club: 4,
+                    competition: 0,
+                    fitness: 6,
+                    cap: {
+                        chi: 'B++',
+                        math: 'B++',
+                        eng: 'B++',
+                        sci: 'B++',
+                        soc: 'B++'
+                    },
+                    weightedSubjects: ['chi', 'math'] // Priority admission top 2 subjects max
+                }
+            };
+        },
+        computed: {
+            // 品德服務總分 (上限 20分)
+            totalMoralScore() {
+                const raw = (Number(this.calc.service) || 0) + (Number(this.calc.reward) || 0) + (Number(this.calc.lifeEdu) || 0);
+                return Math.min(20, Math.round(raw * 10) / 10);
+            },
+            // 績優表現總分 (上限 16分)
+            totalPerformanceScore() {
+                const raw = (Number(this.calc.balanced) || 0) + (Number(this.calc.club) || 0) + (Number(this.calc.competition) || 0) + (Number(this.calc.fitness) || 0);
+                return Math.min(16, Math.round(raw * 10) / 10);
+            },
+            // 會考基礎總分 (上限 45分)
+            totalCapScore() {
+                let sum = 0;
+                for (const key in this.calc.cap) {
+                    sum += this.capScoreMap[this.calc.cap[key]] || 0;
+                }
+                return sum;
+            },
+            // 優免會考加權分數 (至多2科, 原始分數 * 0.3)
+            totalWeightBonus() {
+                let bonus = 0;
+                this.calc.weightedSubjects.forEach(sub => {
+                    const originalScore = this.capScoreMap[this.calc.cap[sub]] || 0;
+                    bonus += originalScore * 0.3;
+                });
+                return Math.min(5, Math.round(bonus * 10) / 10);
+            },
+            // 免試入學 (大免) 總分 (滿分 135)
+            grandTotalGeneral() {
+                const voluntary = 45; // 預設第1~20志願
+                const identity = (Number(this.calc.nearby) || 0) + (Number(this.calc.disadvantaged) || 0);
+                const total = voluntary + identity + this.totalMoralScore + this.totalPerformanceScore + this.totalCapScore;
+                return Math.round(total * 10) / 10;
+            },
+            // 優先免試 (優免) 最高預估總分 (滿分 150)
+            grandTotalPriority() {
+                const voluntaryPriority = 55; // 優免單一志願55分
+                const identity = (Number(this.calc.nearby) || 0) + (Number(this.calc.disadvantaged) || 0);
+                const total = voluntaryPriority + identity + this.totalMoralScore + this.totalPerformanceScore + this.totalCapScore + this.totalWeightBonus;
+                return Math.round(total * 10) / 10;
+            }
+        },
+        methods: {
+            toggleWeightedSubject(subjectKey) {
+                const index = this.calc.weightedSubjects.indexOf(subjectKey);
+                if (index > -1) {
+                    this.calc.weightedSubjects.splice(index, 1);
+                } else {
+                    if (this.calc.weightedSubjects.length < 2) {
+                        this.calc.weightedSubjects.push(subjectKey);
+                    } else {
+                        // Replace the first chosen subject
+                        this.calc.weightedSubjects.shift();
+                        this.calc.weightedSubjects.push(subjectKey);
+                    }
+                }
+            },
+            fillPreset(type) {
+                if (type === 'max') {
+                    this.calc = {
+                        nearby: 7,
+                        disadvantaged: 0,
+                        service: 8,
+                        reward: 6,
+                        lifeEdu: 8,
+                        balanced: 6,
+                        club: 4,
+                        competition: 6,
+                        fitness: 6,
+                        cap: {
+                            chi: 'A++',
+                            math: 'A++',
+                            eng: 'A++',
+                            sci: 'A++',
+                            soc: 'A++'
+                        },
+                        weightedSubjects: ['chi', 'math']
+                    };
+                }
+            },
+            resetCalc() {
+                this.calc = {
+                    nearby: 7,
+                    disadvantaged: 0,
+                    service: 8,
+                    reward: 6,
+                    lifeEdu: 8,
+                    balanced: 6,
+                    club: 4,
+                    competition: 0,
+                    fitness: 6,
+                    cap: {
+                        chi: 'B++',
+                        math: 'B++',
+                        eng: 'B++',
+                        sci: 'B++',
+                        soc: 'B++'
+                    },
+                    weightedSubjects: ['chi', 'math']
+                };
+            }
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>
